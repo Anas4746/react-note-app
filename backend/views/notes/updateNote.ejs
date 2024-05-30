@@ -1,0 +1,25 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div class="container">
+        <form action="/notes/noteupdate/<%=note._id%>?_method=PUT" method="post">
+            <label id="title">Update Title</label>
+            <input for="title" type="text" name="title" value="<%= note.title %>" placeholder="write title">
+            <label id="note">Update Note Content</label>
+            <input for="note" type="text" name="content" value="<%= note.content %>" placeholder="write note">
+            <button>Save</button>
+        </form>
+        
+        <form action="/user/logout" method="post">
+            <button>Logout</button>
+        </form>
+    </div>
+</body>
+</html>

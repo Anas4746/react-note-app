@@ -1,0 +1,41 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div class="container">
+        <form action="/notes/<%= userId %>/usercreateNote" method="post">
+            <input type="hidden" name="authtoken" value="<%= authToken %>">
+            <label id="title">Add Title</label>
+            <input for="title" type="text" name="title" placeholder="write title">
+            <label id="note">Add your Notes</label>
+            <input for="note" type="text" name="content" placeholder="write note">
+            <label id="noteDate">Date</label>
+            <input for="noteDate" type="date" name="noteDate" placeholder="write">
+            <button>Save</button>
+        </form>
+        <div class="container">
+            <% for(let note of userNotes){ %>
+                    <div class="note">
+                        <h3>"<%= note.title  %>"</h3>
+                        <p>"<%= note.content %>"</p>
+                        <p>"<%= note.date %>"</p>
+                    </div>
+                    <form action="/notes//noteupdate/<%= note._id%>" method="get">
+                        <button>Edit Note</button>
+                    </form>
+                    <form action="/notes/notedelete/<%= note._id %>?_method=DELETE" method="post">
+                        <button>Delete</button>
+                    </form>
+                <%  }%>
+        </div>
+        <form action="/user/logout" method="post">
+            <button>Logout</button>
+        </form>
+    </div>
+</body>
+</html>
