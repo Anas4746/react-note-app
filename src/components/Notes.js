@@ -5,12 +5,12 @@ import Note from './Note';
 
 
 const Notes = () => {
-    const { Notes } = useContext(NotesContext);
+    const { UserNotes } = useContext(NotesContext);
     // console.log(Notes)
     return (
         <div className='row my-3'>
-            {Notes.map((note) => {
-                return <Note note={note} />
+            {UserNotes.map((note) => {
+                return <Note note={note} key={note._id} />
             })}
         </div>
     )

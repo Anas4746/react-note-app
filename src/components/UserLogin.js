@@ -7,7 +7,8 @@ const UserLogin = () => {
     const [credential, setCredential] = useState({ email: '', password: '' })
     const { UserLogin } = useContext(UserContext)
     const navigate = useNavigate();
-    const onSubmit = () => {
+    const onSubmit = (e) => {
+        e.preventDefault();
         UserLogin(credential.email, credential.password)
         navigate('/')
     }

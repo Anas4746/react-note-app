@@ -50,8 +50,12 @@ const UserState = (props) => {
         }
 
         const data = await response.json();
-
         console.log(data)
+        if (data.success.success === true) {
+            navigate('/userLogin')
+        } else {
+            alert('Email or Password Incorrect');
+        }
     }
 
     return (

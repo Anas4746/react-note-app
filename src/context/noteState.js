@@ -6,28 +6,6 @@ import React, { useState } from 'react'
 const NoteState = (props) => {
     const host = "http://localhost:2600/notes"
     const [UserNotes, setNotes] = useState([]);
-    const Notes = [
-        {
-            "title": "This is my first title",
-            "content": "Hey my name is first content"
-        },
-        {
-            "title": "This is my first title",
-            "content": "Hey my name is first content"
-        },
-        {
-            "title": "This is my second title",
-            "content": "Hey my name is second content"
-        },
-        {
-            "title": "This is my third title",
-            "content": "Hey my name is third content"
-        },
-        {
-            "title": "This is my fourth title",
-            "content": "Hey my name is fourth content"
-        }
-    ]
 
     const GetNotes = async () => {
         const response = await fetch(`${host}/getnotes`, {
@@ -41,7 +19,44 @@ const NoteState = (props) => {
         if (data.success.success === true) {
             console.log(data.notes)
             setNotes(data.notes)
-            console.log(UserNotes)
+            // console.log(UserNotes)
+        } else {
+            alert('User Not Found');
+        }
+    }
+
+    const AddNote = async (title, content) => {
+        const response = await fetch(`${host}/usercreateNote`, {
+            method: "POST",
+            mode: 'cors',
+            headers: {
+                "Content-Type": "application/json",
+                "authtoken": localStorage.getItem("token")
+            },
+            body: JSON.stringify({
+                title, content
+            })
+        });
+        const data = await response.json();
+        setNotes(data.userNotes);
+        // if (data.success.success === true) {
+        //     console.log(data.userNotes)
+        //     setNotes(data.userNotes)
+        //     // console.log(UserNotes)
+        // } else {
+        //     alert('User Not Found');
+        // }
+    }
+
+    const DeleteNote = async (id) => {
+        const response = await fetch(`${host}/notedelete/${id}`, {
+            method: "Delete"
+        })
+        const data = await response.json();
+        if (data.success.success === true) {
+            console.log(data.notes)
+            setNotes(data.notes)
+            // console.log(UserNotes)
         } else {
             alert('User Not Found');
         }
@@ -49,7 +64,7 @@ const NoteState = (props) => {
 
     return (
         <div>
-            <NoteContext.Provider value={{ Notes, GetNotes }}>
+            <NoteContext.Provider value={{ UserNotes, GetNotes, AddNote, DeleteNote }}>
                 {props.children}
             </NoteContext.Provider>
         </div>
